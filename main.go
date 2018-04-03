@@ -6,29 +6,6 @@ import (
 	"io/ioutil"
 )
 
-// Reservation object
-type Reservation struct {
-	Room     int `json:"roomNumber"`
-	ResStart int `json:"startTimestamp"`
-	ResEnd   int `json:"endTimestamp"`
-}
-
-// Guest object
-type Guest struct {
-	ID        int         `json:"id"`
-	FirstName string      `json:"firstName"`
-	LastName  string      `json:"lastName"`
-	ResDeets  Reservation `json:"reservation"`
-}
-
-// Company object
-type Company struct {
-	ID       int    `json:"id"`
-	Company  string `json:"company"`
-	City     string `json:"city"`
-	Timezone string `json:"timezone"`
-}
-
 func getCompanies() ([]Company, error) {
 	var companies []Company
 	raw, err := ioutil.ReadFile("./Companies.json")
@@ -49,13 +26,40 @@ func getGuests() ([]Guest, error) {
 	return guests, nil
 }
 
-func main() {
-	fmt.Println("Hello!")
-	companies, _ := getCompanies()
-	fmt.Println(companies)
-	guests, err := getGuests()
+func getMessages() ([]Message, error) {
+	var messages []Message
+	raw, err := ioutil.ReadFile("./Messages.json")
 	if err != nil {
-		fmt.Println(err.Error())
+		return nil, err
 	}
-	fmt.Println(guests)
+	json.Unmarshal(raw, &messages)
+	return messages, nil
+}
+
+func main() {
+	// fmt.Println("Hello!")
+	// companies, _ := getCompanies()
+	// fmt.Println(companies)
+	// guests, err := getGuests()
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+	// fmt.Println(guests)
+	messages, _ := getMessages()
+	test := fmt.Sprintf(messages[0].Message, "Good morning", "Candy", 305, "Hotel California")
+	fmt.Println(test)
+
+	// routes := gin.Default()
+
+	// routes.GET("/companies", func(c *gin.Context) {
+	// 	results, _ := getCompanies()
+	// 	c.JSON(200, results)
+	// })
+
+	// routes.GET("/guests", func(c *gin.Context) {
+	// 	results, _ := getGuests()
+	// 	c.JSON(200, results)
+	// })
+
+	// routes.Run()
 }
