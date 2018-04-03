@@ -1,0 +1,14 @@
+[
+    {
+        "message": "%s, %s! Room %d is ready for you now. We hope you enjoy your stay at %s!"
+    },
+    {
+        "message": "%s, %s! A visitor is waiting for you in the lobby"
+    },
+    {
+        "message": "%s, %s! Your room service order is on its way to Room %d"
+    },
+    {
+        "message": "%s, welcome to %s!"
+    }
+]
