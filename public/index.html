@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- vendors -->
+    <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="./scripts/client.js"></script>
+    <script src="./scripts/services/main.service.js" charset="utf-8"></script>
+    <script src="./scripts/controllers/main.controller.js" charset="utf-8"></script>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap-theme.css">
+</head>
+
+<body ng-app='myApp'>
+    <main ng-controller="MainController as mc">
+        <h1>Hello World!</h1>
+        <div class="selection">
+            <div class="properties">
+                <h3>Select a hotel</h3>
+                <select ng-model="selectHotel" ng-change="mc.selectCompany()">
+                    <option value="hotel1">Hotel 1</option>
+                    <option value="hotel2">Hotel 2</option>
+                    <option value="hotel3">Hotel 3</option>
+                    <option value="hotel4">Hotel 4</option>
+                </select>
+            </div>
+            <div class="guests" ng-show="mc.guestsOn">
+                <h3>Select a guest</h3>
+                <select ng-model="selectGuest" ng-change="mc.selectGuest()">
+                    <!-- <option value="" disabled selected style="display: none;">Okay, now which guest do you want to contact?</option> -->
+                    <option value="guest1">Guest 1</option>
+                    <option value="guest1">Guest 2</option>
+                    <option value="guest1">Guest 3</option>
+                    <option value="guest1">Guest 4</option>
+                </select>
+            </div>
+            <div class="messages" ng-show="mc.messagesOn">
+                <h3>Select a message template</h3>
+                <select ng-model="selectMessage" ng-change="mc.displayMessage()">
+                    <!-- <option value="" disabled selected style="display: none;">Cool. What do you want to tell them?</option> -->
+                    <option value="msg1">Message 1</option>
+                    <option value="msg2">Message 2</option>
+                    <option value="msg3">Message 3</option>
+                    <option value="msg4">Message 4</option>
+                </select>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

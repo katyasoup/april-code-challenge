@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+
+	"github.com/gin-gonic/gin"
 )
 
 func getCompanies() ([]Company, error) {
@@ -37,29 +39,29 @@ func getMessages() ([]Message, error) {
 }
 
 func main() {
-	// fmt.Println("Hello!")
-	// companies, _ := getCompanies()
-	// fmt.Println(companies)
-	// guests, err := getGuests()
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// }
-	// fmt.Println(guests)
+	fmt.Println("Hello World!")
+	companies, _ := getCompanies()
+	fmt.Println(companies)
+	guests, err := getGuests()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println(guests)
 	messages, _ := getMessages()
 	test := fmt.Sprintf(messages[0].Message, "Good morning", "Candy", 305, "Hotel California")
 	fmt.Println(test)
 
-	// routes := gin.Default()
+	routes := gin.Default()
 
-	// routes.GET("/companies", func(c *gin.Context) {
-	// 	results, _ := getCompanies()
-	// 	c.JSON(200, results)
-	// })
+	routes.GET("/companies", func(c *gin.Context) {
+		results, _ := getCompanies()
+		c.JSON(200, results)
+	})
 
-	// routes.GET("/guests", func(c *gin.Context) {
-	// 	results, _ := getGuests()
-	// 	c.JSON(200, results)
-	// })
+	routes.GET("/guests", func(c *gin.Context) {
+		results, _ := getGuests()
+		c.JSON(200, results)
+	})
 
-	// routes.Run()
+	routes.Run()
 }
