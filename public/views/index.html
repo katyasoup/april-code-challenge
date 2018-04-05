@@ -7,53 +7,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <!-- vendors -->
-    <script type="text/javascript" src="./static/vendors/angular.min.js"></script>
-    <script type="text/javascript" src="./static/vendors/angular-route.min.js"></script>
-    <script type="text/javascript" src="./static/client.js"></script>
-    <script src="./static/main.service.js" charset="utf-8"></script>
-    <script src="./static/main.controller.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="../static/vendors/angular-route.min.js"></script>
+    <script type="text/javascript" src="../static/client.js"></script>
+    <script src="../static/main.service.js" charset="utf-8"></script>
+    <script src="../static/main.controller.js" charset="utf-8"></script>
 
     <!-- styles -->
-    <link rel="stylesheet" href="./static/vendors/bootstrap.css">
-    <link rel="stylesheet" href="./static/vendors/bootstrap-theme.css">
+    <link rel="stylesheet" href="../static/vendors/bootstrap.css">
+    <link rel="stylesheet" href="../static/vendors/bootstrap-theme.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
 </head>
 
-<body ng-app='myApp'>
-    <main ng-controller="MainController as mc">
-        <h1>Hello World!</h1>
-        <p ng-repeat="guest in mc.guests.list">test</p>
+<body ng-app="myApp" ng-controller="MainController as mc">
+    <header ng-init="mc.getCompanies()">
+        <h1>Message Generator</h1>
+    </header>
+    <main>
         <div class="selection">
             <div class="properties">
-                <h3>Select a hotel</h3>
-                <select ng-model="selectHotel" ng-change="mc.selectCompany()">
-                    <option value="hotel1">Hotel 1</option>
-                    <option value="hotel2">Hotel 2</option>
-                    <option value="hotel3">Hotel 3</option>
-                    <option value="hotel4">Hotel 4</option>
+                <h3>First, select a hotel:</h3>
+                <select ng-model="selectCompany" ng-change="mc.selectCompany()">
+                    <option ng-repeat="company in mc.companies" value="{{" {{ "}} company.id {{"}} "}}">{{"{{"}} company.company {{"}}"}}, {{"{{"}} company.city {{"}}"}}</option>
                 </select>
             </div>
             <div class="guests" ng-show="mc.guestsOn">
-                <h3>Select a guest</h3>
+                <h3>Next, select a guest:</h3>
                 <select ng-model="selectGuest" ng-change="mc.selectGuest()">
-                    <!-- <option value="" disabled selected style="display: none;">Okay, now which guest do you want to contact?</option> -->
-                    <option value="guest1">Guest 1</option>
-                    <option value="guest1">Guest 2</option>
-                    <option value="guest1">Guest 3</option>
-                    <option value="guest1">Guest 4</option>
+                    <option ng-repeat="guest in mc.guests" value="{{" {{ "}} guest.id {{"}} "}}">{{"{{"}} guest.firstName {{"}}"}} {{"{{"}} guest.lastName {{"}}"}}</option>
                 </select>
             </div>
             <div class="messages" ng-show="mc.messagesOn">
-                <h3>Select a message template</h3>
+                <h3>Now, select a message template:</h3>
                 <select ng-model="selectMessage" ng-change="mc.displayMessage()">
-                    <!-- <option value="" disabled selected style="display: none;">Cool. What do you want to tell them?</option> -->
-                    <option value="msg1">Message 1</option>
-                    <option value="msg2">Message 2</option>
-                    <option value="msg3">Message 3</option>
-                    <option value="msg4">Message 4</option>
+                        <option ng-repeat="message in mc.messages" value="{{" {{ "}} message.id {{"}} "}}">{{"{{"}} message.type {{"}}"}}</option>
                 </select>
             </div>
         </div>
+        </div>
     </main>
+    <footer>
+    </footer>
 </body>
 
 </html>

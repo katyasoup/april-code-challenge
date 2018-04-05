@@ -46,7 +46,7 @@ myApp.service('MainService', function ($http) {
         }).then(function (response) {
             console.log('in main.service and back from server with:', response);
             sv.messages.list = response.data;
-            console.log('messages:', sv.companies);
+            console.log('messages:', sv.messages);
         });
     };
 });

@@ -49,18 +49,14 @@ func main() {
 	}
 	fmt.Println(guests)
 	messages, _ := getMessages()
-	test := fmt.Sprintf(messages[0].Message, "Good morning", "Candy", 305, "Hotel California")
-	fmt.Println(test)
+	fmt.Println(messages)
 
 	routes := gin.Default()
+
 	routes.LoadHTMLFiles("./public/views/index.html")
-	routes.Static("/static", "./public/static/")
+	routes.Static("/static", "./public/static")
 	routes.Static("/vendors", "./public/static/vendors")
-	// routes.Static("/controllers", "./public/scripts/controllers")
-	// routes.Static("/services", "./public/scripts/services")
-	// routes.Static("/angular", "./public/vendors/angular")
-	// routes.Static("/angular-route", "./public/vendors/angular-route")
-	// routes.Static("/bootstrap", "./public/vendors/bootstrap")
+	routes.Static("/styles", "./public/static/styles")
 
 	routes.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
@@ -73,6 +69,11 @@ func main() {
 
 	routes.GET("/guests", func(c *gin.Context) {
 		results, _ := getGuests()
+		c.JSON(200, results)
+	})
+
+	routes.GET("/messages", func(c *gin.Context) {
+		results, _ := getMessages()
 		c.JSON(200, results)
 	})
 

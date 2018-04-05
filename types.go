@@ -25,5 +25,7 @@ type Company struct {
 
 // Message data
 type Message struct {
+	ID      int    `json:"id"`
+	Type    string `json:"type"`
 	Message string `json:"message"`
 }
