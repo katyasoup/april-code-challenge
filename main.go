@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func getCompanies() ([]Company, error) {
 	var companies []Company
-	raw, err := ioutil.ReadFile("./Companies.json")
+	raw, err := ioutil.ReadFile("./data/Companies.json")
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +21,7 @@ func getCompanies() ([]Company, error) {
 
 func getGuests() ([]Guest, error) {
 	var guests []Guest
-	raw, err := ioutil.ReadFile("./Guests.json")
+	raw, err := ioutil.ReadFile("./data/Guests.json")
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +31,7 @@ func getGuests() ([]Guest, error) {
 
 func getMessages() ([]Message, error) {
 	var messages []Message
-	raw, err := ioutil.ReadFile("./Messages.json")
+	raw, err := ioutil.ReadFile("./data/Messages.json")
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +53,18 @@ func main() {
 	fmt.Println(test)
 
 	routes := gin.Default()
+	routes.LoadHTMLFiles("./public/views/index.html")
+	routes.Static("/static", "./public/static/")
+	routes.Static("/vendors", "./public/static/vendors")
+	// routes.Static("/controllers", "./public/scripts/controllers")
+	// routes.Static("/services", "./public/scripts/services")
+	// routes.Static("/angular", "./public/vendors/angular")
+	// routes.Static("/angular-route", "./public/vendors/angular-route")
+	// routes.Static("/bootstrap", "./public/vendors/bootstrap")
+
+	routes.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 
 	routes.GET("/companies", func(c *gin.Context) {
 		results, _ := getCompanies()
