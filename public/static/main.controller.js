@@ -78,9 +78,6 @@ myApp.controller('MainController', function ($http, MainService) {
         vm.inputIDs.message = messageID;
         console.log('IDs:', vm.inputIDs);
         vm.constructMessageObj(vm.inputIDs.company, vm.inputIDs.guest, vm.inputIDs.message);
-        console.log('DONE HIT');
-
-
     };
 
     // build message object based on user input
@@ -108,7 +105,24 @@ myApp.controller('MainController', function ($http, MainService) {
             }
         }
 
-        console.log('message to display:', vm.messageObj);
+        // replace placeholders
+        vm.replacePlaceholders(vm.messageObj.company, vm.messageObj.guest, vm.messageObj.message);
+        // console.log('');
+        
+        
+    };
+
+    vm.replacePlaceholders = function(company, guest, message) {
+        let newMsg = vm.messageObj.message.message;
+        let placeholders = ["$FNAME", "$LNAME", "$ROOM", "$COMPANY", "$CITY"];
+        let replacements = [guest.firstName, guest.lastName, guest.reservation.roomNumber, company.company, company.city];
+        
+        for (let i = 0; i < placeholders.length; i++) {
+            newMsg = newMsg.replace(placeholders[i], replacements[i]);
+        }
+    
+        console.log('newmsg:', newMsg);
         
     };
 });
+
