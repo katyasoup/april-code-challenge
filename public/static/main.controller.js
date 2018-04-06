@@ -85,7 +85,7 @@ myApp.controller('MainController', function ($http, MainService) {
         // convert timestamp in guest json data to milliseconds for use in convertTime function
         let checkoutTime = guest.reservation.endTimestamp * 1000;
         let checkout = vm.convertTime(checkoutTime, company.timezone);
-        let replacements = [greeting, guest.firstName, guest.lastName, guest.reservation.roomNumber, checkout, company.company, company.city];
+        let replacements = [greeting, guest.firstName, guest.lastName, guest.reservation.roomNumber, checkout.toLocaleString(), company.company, company.city];
         for (let i = 0; i < placeholders.length; i++) {
             newMsg = newMsg.replace(placeholders[i], replacements[i]);
         }
@@ -106,20 +106,20 @@ myApp.controller('MainController', function ($http, MainService) {
         // select appropriate timezone offset for target property (in hours)
         switch (timezone) {
             case "US/Pacific":
-                targetOffset = 7;
+                targetOffset = 8;
                 break;
             case "US/Central":
-                targetOffset = 5;
+                targetOffset = 6;
                 break;
             case "US/Eastern":
-                targetOffset = 4;
+                targetOffset = 5;
                 break;
             default:
                 targetOffset = 0;
         }
 
         let targetTime = (utc - targetOffset * 3600000);
-        let targetDate = new Date(targetTime);
+        let targetDate = new Date(targetTime)
 
         return targetDate;
     };
