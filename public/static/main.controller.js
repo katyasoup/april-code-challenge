@@ -9,14 +9,7 @@ myApp.controller('MainController', function ($http, MainService) {
     vm.companies = [];
 
     // to store message data from server
-    vm.messages = [];
-
-    // to store IDs for creating custom message object
-    vm.inputIDs = {
-        company: 0,
-        guest: 0,
-        message: 0
-    };
+    vm.messagesList = [];
 
     // to store user-selected data
     vm.messageObj = {
@@ -51,62 +44,63 @@ myApp.controller('MainController', function ($http, MainService) {
     // grab all messages from server
     vm.getMessages = function () {
         MainService.getMessages().then(function (response) {
-            vm.messages = MainService.messages.list;
-            console.log('messages in the controller:', vm.messages);
+            vm.messagesList = MainService.messages.list;
+            console.log('messages in the controller:', vm.messagesList);
         });
     };
 
     // set company on DOM and in messageObj
-    vm.selectCompany = function (companyID) {
-        console.log('clicky companies', companyID);
+    vm.selectCompany = function (indexValue) {
+        console.log('clicky companies', indexValue);
         vm.guestsOn = true;
-        vm.inputIDs.company = companyID;
-        console.log('IDs:', vm.inputIDs);
+        let index = parseInt(indexValue);
+        vm.messageObj.company = vm.companies[index];
+        console.log('NEW COMPANY OBJECT:', vm.messageObj.company);
+        
         vm.getGuests();
     };
 
     // set guest on DOM and in messageObj
-    vm.selectGuest = function (guestID) {
-        console.log('clicky guests', guestID);
+    vm.selectGuest = function (indexValue) {
+        console.log('clicky guests', indexValue);
         vm.messagesOn = true;
-        vm.inputIDs.guest = guestID;
-        console.log('IDs:', vm.inputIDs);
+        let index = parseInt(indexValue);
+        vm.messageObj.guest = vm.guests[index];
+        console.log('NEW GUEST OBJECT:', vm.messageObj.guest);
         vm.getMessages();
     };
 
     // set message on DOM and in messageObj
-    vm.selectMessage = function (messageID) {
-        console.log('clicky messages', messageID);
+    vm.selectMessage = function (indexValue) {
+        console.log('clicky SELECT messages', indexValue);
         vm.displayMessage = true;
-        vm.inputIDs.message = messageID;
-        console.log('IDs:', vm.inputIDs);
+        let index = parseInt(indexValue);
+        vm.messageObj.message = vm.messagesList[index];
+        console.log('NEW MESSAGE OF ALL:', vm.messageObj.message);
+        
         };
 
     // build message object based on user input
     vm.constructMessageObj = function (companyID, guestID, messageID) {
-        console.log('custom message with:', companyID, guestID, messageID);
-
-        // set messageObj company to user selected company
-        for (let i = 0; i < vm.companies.length; i++) {
-            if (vm.companies[i].id == companyID) {
-                vm.messageObj.company = vm.companies[i];
-            }
-        }
-        // set messageObj guest to user selected guest
-        for (let i = 0; i < vm.guests.length; i++) {
-            if (vm.guests[i].id == guestID) {
-                vm.messageObj.guest = vm.guests[i];
-            }
-        }
-        // set messageObj message to user selected message
-        for (let i = 0; i < vm.messages.length; i++) {
-            if (vm.messages[i].id == messageID) {
-                vm.messageObj.message = vm.messages[i];
-            }
-        }
-        // build message with appropriate user-selected variables
+        console.log('custom message with:', companyID, guestID, messageID)
         vm.replacePlaceholders(vm.messageObj.company, vm.messageObj.guest, vm.messageObj.message);
 
+    };
+
+    vm.constructCustomMessage = function() {
+        let company = vm.messageObj.company;
+        let guest = vm.messageObj.guest;
+        let message = vm.messageObj.message;
+        vm.messageObj.message.id = vm.messagesList.length +1;
+        vm.messageObj.message.type = "Custom Message " + (vm.messagesList.length -2);
+        vm.messageObj.message.message = vm.customInput;
+        console.log('message constructified:', message);
+        
+        vm.messagesList.push(message);
+        vm.constructMessageObj(company, guest, message);
+        vm.displayMessage = true;
+        console.log('ALL MESSAGES:', vm.messagesList);
+        
     };
 
     // replace placeholder text in custom message
@@ -153,7 +147,7 @@ myApp.controller('MainController', function ($http, MainService) {
 
         console.log('date:', date);
         console.log('utc:', utc);
-        console.log('target date:', targetDateFormat);
+        console.log('target date:', targetDate);
 
         return targetDate;
     };

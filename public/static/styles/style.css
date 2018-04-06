@@ -7,16 +7,20 @@ footer {
     padding: 2%;
 }
 
+.properties, .guests, .messages {
+    padding-left: 5%;
+    padding-right: 5%;
+}
 .customMessage {
     padding: 5%;
 }
 
-.customInput {
-    text-align: left !important;
+.customTemplate{
+    text-align: left;
     padding: 5%;
 }
 
-.input {
-    resize: both !important;
+textarea {
+    resize: both;
     width: 80%;
 }
