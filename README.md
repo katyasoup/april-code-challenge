@@ -21,7 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 - **Gin**, a web framework that makes http routing in Go a breeze. Cheers!
 - **AngularJS**, a frontend framework that I learned at Prime, and am most comfortable working with. This project also benefits from Angular's two-way binding for quick and automatic updates between the model and view.
 
-###Process
+### Process
 - **Design** decisions were made to attempt to keep the code separated into discrete, modular components. A separate route for each JSON file ensures that more data could easily be added and integrated into the existing architecture. All client-side http calls are made within main.service.js. All logic to manipulate data on the client-side is kept in main.controller.js and written in functions that are separated by concern and are reusable within the code. I tried to follow naming conventions that would clearly indicate purpose and avoid confusion.  
 The UX decision to include a series of dropdown menus for selecting the variables was made with the intention of minimizing user input error.
 - **Testing** - although I did not implement automated testing, I tried to ensure the correctness of my program by constantly testing in-browser in both Chrome and Firefox. During development I made liberal use of console.logs to aid in identifying where and how data was transformed, as well as the built-in debugger in VScode. I'd like to implement further error handling, especially on the front end. 
