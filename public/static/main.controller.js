@@ -91,12 +91,12 @@ myApp.controller('MainController', function ($http, MainService) {
         let company = vm.messageObj.company;
         let guest = vm.messageObj.guest;
         let message = vm.messageObj.message;
-        vm.messageObj.message.id = vm.messagesList.length +1;
-        vm.messageObj.message.type = "Custom Message " + (vm.messagesList.length -2);
+        // vm.messageObj.message.id = vm.messagesList.length +1;
+        // vm.messageObj.message.type = "Custom Message " + (vm.messagesList.length -2);
         vm.messageObj.message.message = vm.customInput;
         console.log('message constructified:', message);
         
-        vm.messagesList.push(message);
+        // vm.messagesList.push(message);
         vm.constructMessageObj(company, guest, message);
         vm.displayMessage = true;
         console.log('ALL MESSAGES:', vm.messagesList);
