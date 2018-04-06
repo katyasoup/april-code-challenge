@@ -80,8 +80,7 @@ myApp.controller('MainController', function ($http, MainService) {
         vm.displayMessage = true;
         vm.inputIDs.message = messageID;
         console.log('IDs:', vm.inputIDs);
-        vm.constructMessageObj(vm.inputIDs.company, vm.inputIDs.guest, vm.inputIDs.message);
-    };
+        };
 
     // build message object based on user input
     vm.constructMessageObj = function (companyID, guestID, messageID) {
@@ -151,7 +150,6 @@ myApp.controller('MainController', function ($http, MainService) {
 
         let targetTime = (utc - targetOffset * 3600000);
         let targetDate = new Date(targetTime);
-        let targetDateFormat = targetDate.getDay()
 
         console.log('date:', date);
         console.log('utc:', utc);

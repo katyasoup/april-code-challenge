@@ -1,4 +1,6 @@
-header, main, footer {
+header,
+main,
+footer {
     /* background: tomato; */
     text-align: center;
     margin: auto;
@@ -6,5 +8,15 @@ header, main, footer {
 }
 
 .customMessage {
-    padding: 10%;
+    padding: 5%;
+}
+
+.customInput {
+    text-align: left !important;
+    padding: 5%;
+}
+
+.input {
+    resize: both !important;
+    width: 80%;
 }

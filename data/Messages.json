@@ -7,7 +7,7 @@
     {
         "id": 2,
         "type": "Room Service",
-        "message": "$GREETING, $FNAME. Your room service order is on its way to Room $ROOM."
+        "message": "$GREETING, $FNAME. Your room service order is on its way to Room $ROOM. Enjoy!"
     },
     {
         "id": 3,

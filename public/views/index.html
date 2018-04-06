@@ -25,28 +25,51 @@
     </header>
     <main>
         <div class="selection">
-            <div class="properties">
-                <h3>First, select a hotel:</h3>
-                <select ng-model="mc.selectedCompany" ng-change="mc.selectCompany(mc.selectedCompany)">
+            <div class="form-group properties">
+                <label for="companies">First, select a hotel:</label>
+                <select class="form-control" id="company" ng-model="mc.selectedCompany" ng-change="mc.selectCompany(mc.selectedCompany)">
                     <option ng-repeat="company in mc.companies" value="{{" {{ "}} company.id {{"}} "}}">{{"{{"}} company.company {{"}}"}}, {{"{{"}} company.city {{"}}"}}</option>
                 </select>
             </div>
-            <div class="guests" ng-show="mc.guestsOn">
-                <h3>Next, select a guest:</h3>
-                <select ng-model="mc.selectedGuest" ng-change="mc.selectGuest(mc.selectedGuest)">
+            <div class="form-group guests" ng-show="mc.guestsOn">
+                <label for="guests">Next, select a guest:</label>
+                <select class="form-control" id="guest" ng-model="mc.selectedGuest" ng-change="mc.selectGuest(mc.selectedGuest)">
                     <option ng-repeat="guest in mc.guests" value="{{" {{ "}} guest.id {{"}} "}}">{{"{{"}} guest.firstName {{"}}"}} {{"{{"}} guest.lastName {{"}}"}}</option>
                 </select>
             </div>
-            <div class="messages" ng-show="mc.messagesOn">
-                <h3>Now, select a message template:</h3>
-                <select ng-model="mc.selectedMessage" ng-change="mc.selectMessage(mc.selectedMessage)">
-                        <option ng-repeat="message in mc.messages" value="{{" {{ "}} message.id {{"}} "}}">{{"{{"}} message.type {{"}}"}}</option>
+            <div class="form-group messages" ng-show="mc.messagesOn">
+                <label for="messages">Now, select a message template:</label>
+                <select class="form-control" id="message" ng-model="mc.selectedMessage" ng-change="mc.selectMessage(mc.selectedMessage)">
+                    <option ng-repeat="message in mc.messages" value="{{" {{ "}} message.id {{"}} "}}">{{"{{"}} message.type {{"}}"}}</option>
                 </select>
             </div>
+            <button type="button" class="btn btn-info" ng-show="mc.displayMessage" ng-click="mc.constructMessageObj(mc.inputIDs.company, mc.inputIDs.guest, mc.inputIDs.message)">Generate Message</button>
         </div>
         <div class="customMessage" ng-show="mc.displayMessage">
             <p>{{"{{"}} mc.messageToDisplay {{"}}"}}</p>
         </div>
+        <div class="customInput">
+            <hr>
+            <h4>Prefer to write your own message?</h4>
+            <p>Use the following placeholders as needed:
+                <ul>
+                    <li>
+                        $GREETING (A greeting based on the time of day)
+                    </li>
+                    <li>
+                        $FNAME / $LNAME (First and last names)
+                    </li>
+                    <li>
+                        $COMPANY, $CITY, $ROOM, (A company name, location, and room number)
+                    </li>
+                </ul>
+            </p>
+            <div class="form-group">
+                <label for="comment">Enter your text below:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <button type="button" class="btn btn-info" ng-click="mc.constructMessageObj(mc.inputIDs.company, mc.inputIDs.guest, mc.inputIDs.message)">Generate Message</button>
+
         </div>
     </main>
     <footer>
