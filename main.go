@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -40,17 +39,6 @@ func getMessages() ([]Message, error) {
 }
 
 func main() {
-	fmt.Println("Hello World!")
-	companies, _ := getCompanies()
-	fmt.Println(companies)
-	guests, err := getGuests()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	fmt.Println(guests)
-	messages, _ := getMessages()
-	fmt.Println(messages)
-
 	routes := gin.Default()
 
 	routes.LoadHTMLFiles("./public/views/index.html")

@@ -12,6 +12,6 @@
     {
         "id": 3,
         "type": "Checkout",
-        "message": "$GREETING, $FNAME $LNAME. Your checkout time is $TIME. We hope you have enjoyed your time in $CITY!"
+        "message": "$GREETING, $FNAME $LNAME. Your checkout time from $COMPANY is $TIME. We hope you have enjoyed your time in $CITY!"
     }
 ]

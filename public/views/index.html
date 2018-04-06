@@ -43,7 +43,7 @@
                     <option ng-repeat="message in mc.messagesList track by $index" value="{{" {{ "}} $index {{"}} "}}">{{"{{"}} message.type {{"}}"}}</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-info" ng-show="mc.displayMessage" ng-click="mc.constructMessageObj(mc.inputIDs.company, mc.inputIDs.guest, mc.inputIDs.message)">Generate Message</button>
+            <button type="button" class="btn btn-info" ng-show="mc.displayMessage" ng-click="mc.constructMessage(mc.messageObj.company, mc.messageObj.guest, mc.messageObj.message)">Generate Message</button>
         </div>
         <div class="customMessage" ng-show="mc.displayMessage">
             <p>{{"{{"}} mc.messageToDisplay {{"}}"}}</p>
@@ -64,6 +64,7 @@
                     </li>
                 </ul>
             </p>
+            <p><em>For example: Hello $FNAME, welcome to $CITY!</em></p>
             <div class="form-group">
                 <label for="customInput">Enter your custom message template here:</label>
                 <textarea class="form-control" rows="5" ng-model="mc.customInput"></textarea>

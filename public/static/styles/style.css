@@ -1,21 +1,23 @@
 header,
 main,
 footer {
-    /* background: tomato; */
     text-align: center;
     margin: auto;
     padding: 2%;
 }
 
-.properties, .guests, .messages {
+.properties,
+.guests,
+.messages {
     padding-left: 5%;
     padding-right: 5%;
 }
+
 .customMessage {
     padding: 5%;
 }
 
-.customTemplate{
+.customTemplate {
     text-align: left;
     padding: 5%;
 }
