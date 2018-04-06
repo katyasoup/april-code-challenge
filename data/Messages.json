@@ -2,16 +2,16 @@
     {
         "id": 1,
         "type": "Welcome",
-        "message": "%s, %s! Room %d is ready for you now. We hope you enjoy your stay at %s!"
+        "message": "$GREETING, $FNAME! Room $ROOM is ready for you now. We hope you enjoy your stay at $COMPANY!"
     },
     {
         "id": 2,
         "type": "Room Service",
-        "message": "%s, %s! Your room service order is on its way to Room %d"
+        "message": "$GREETING, $NAME! Your room service order is on its way to Room $ROOM."
     },
     {
         "id": 3,
         "type": "Checkout",
-        "message": "%s, %s, you have %d hours until checkout."
+        "message": "$GREETING, $NAME, you have $HOURS hours until checkout today. We hope you have enjoyed your stay with us!"
     }
 ]

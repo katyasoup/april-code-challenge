@@ -11,6 +11,13 @@ myApp.controller('MainController', function ($http, MainService) {
     // to store message data from server
     vm.messages = [];
 
+    vm.messageObj = {
+        company: "",
+        guest: "",
+        message: ""
+    };
+
+    // to store newly created custom message object
     vm.guestsOn = false;
     vm.messagesOn = false;
     vm.displayMessage = false;
@@ -22,7 +29,7 @@ myApp.controller('MainController', function ($http, MainService) {
             console.log('companies in the controller:', vm.companies);
         });
     };
-    
+
     // grab all guests from server
     vm.getGuests = function () {
         MainService.getGuests().then(function (response) {
@@ -38,20 +45,32 @@ myApp.controller('MainController', function ($http, MainService) {
         });
     };
 
-    vm.selectCompany = function () {
-        console.log('clicky companies');
+    vm.selectCompany = function (companyID) {
+        console.log('clicky companies', companyID);
         vm.guestsOn = true;
+        vm.messageObj.company = companyID;
+        console.log('messageObj:', vm.messageObj);
         vm.getGuests();
     };
 
-    vm.selectGuest = function () {
-        console.log('clicky guests');
+    vm.selectGuest = function (guestID) {
+        console.log('clicky guests', guestID);
         vm.messagesOn = true;
+        vm.messageObj.guest = guestID;
+        console.log('messageObj:', vm.messageObj);
         vm.getMessages();
     };
 
-    vm.displayMessage = function () {
-        console.log('clicky messages');
+    vm.selectMessage = function (messageID) {
+        console.log('clicky messages', messageID);
         vm.displayMessage = true;
+        vm.messageObj.message = messageID;
+        console.log('messageObj:', vm.messageObj);
+        // vm.displayMessage();
+
+    };
+
+    vm.displayMessage = function (companyID, guestID, messageID) {
+        console.log('custom message with:', companyID, guestID, messageID);
     };
 });
