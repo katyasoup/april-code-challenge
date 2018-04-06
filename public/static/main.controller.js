@@ -25,6 +25,9 @@ myApp.controller('MainController', function ($http, MainService) {
         message: {}
     };
 
+    // to display custom message on DOM
+    vm.messageToDisplay = "";
+
     // toggle fields on DOM
     vm.guestsOn = false;
     vm.messagesOn = false;
@@ -84,45 +87,95 @@ myApp.controller('MainController', function ($http, MainService) {
     vm.constructMessageObj = function (companyID, guestID, messageID) {
         console.log('custom message with:', companyID, guestID, messageID);
 
-        // set messageToDisplay company to user selected company
+        // set messageObj company to user selected company
         for (let i = 0; i < vm.companies.length; i++) {
             if (vm.companies[i].id == companyID) {
                 vm.messageObj.company = vm.companies[i];
             }
         }
-
-        // set messageToDisplay guest to user selected guest
+        // set messageObj guest to user selected guest
         for (let i = 0; i < vm.guests.length; i++) {
             if (vm.guests[i].id == guestID) {
                 vm.messageObj.guest = vm.guests[i];
             }
         }
-
-        // set messageToDisplay message to user selected message
+        // set messageObj message to user selected message
         for (let i = 0; i < vm.messages.length; i++) {
             if (vm.messages[i].id == messageID) {
                 vm.messageObj.message = vm.messages[i];
             }
         }
-
-        // replace placeholders
+        // build message with appropriate user-selected variables
         vm.replacePlaceholders(vm.messageObj.company, vm.messageObj.guest, vm.messageObj.message);
-        // console.log('');
-        
-        
+
     };
 
-    vm.replacePlaceholders = function(company, guest, message) {
+    // replace placeholder text in custom message
+    vm.replacePlaceholders = function (company, guest, message) {
         let newMsg = vm.messageObj.message.message;
-        let placeholders = ["$FNAME", "$LNAME", "$ROOM", "$COMPANY", "$CITY"];
-        let replacements = [guest.firstName, guest.lastName, guest.reservation.roomNumber, company.company, company.city];
-        
+        let placeholders = ["$GREETING", "$FNAME", "$LNAME", "$ROOM", "$TIME", "$COMPANY", "$CITY"];
+        let greeting = vm.formatGreeting(company.timezone);
+        // convert timestamp in guest json data to milliseconds for use in convertTime function
+        let checkoutTime = guest.reservation.endTimestamp * 1000;
+        let checkout = vm.convertTime(checkoutTime, company.timezone);
+        let replacements = [greeting, guest.firstName, guest.lastName, guest.reservation.roomNumber, checkout, company.company, company.city];
         for (let i = 0; i < placeholders.length; i++) {
             newMsg = newMsg.replace(placeholders[i], replacements[i]);
         }
-    
-        console.log('newmsg:', newMsg);
+        console.log('message to display:', newMsg);
+        vm.messageToDisplay = newMsg;
+
+    };
+
+    vm.convertTime = function (time, timezone) {
+        let date = new Date(time);
+        let localTime = date.getTime();
+        let localOffset = date.getTimezoneOffset() * 60000;
+
+        let utc = localTime + localOffset;
+
+        // select appropriate timezone offset for target property (in hours)
+        switch (timezone) {
+            case "US/Pacific":
+                targetOffset = 7;
+                break;
+            case "US/Central":
+                targetOffset = 5;
+                break;
+            case "US/Eastern":
+                targetOffset = 4;
+                break;
+            default:
+                targetOffset = 0;
+        }
+
+        let targetTime = (utc - targetOffset * 3600000);
+        let targetDate = new Date(targetTime);
+        let targetDateFormat = targetDate.getDay()
+
+        console.log('date:', date);
+        console.log('utc:', utc);
+        console.log('target date:', targetDateFormat);
+
+        return targetDate;
+    };
+
+    vm.formatGreeting = function (timezone) {
+        // select current date and time (based on user's current location)
+        let date = new Date();
+        // convert to appropriate timezone based on property
+        let currentTime = vm.convertTime(date, timezone);
+        // convert to hour 
+        let currentHour = currentTime.getHours();
+        console.log('current hour at property:', currentHour);
         
+
+        if (currentHour < 12) {
+            return "Good morning";
+        } else if (currentHour >= 12 && currentHour <= 17) {
+            return "Good afternoon";
+        } else {
+            return "Good evening";
+        }
     };
 });
-

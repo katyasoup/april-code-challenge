@@ -7,11 +7,11 @@
     {
         "id": 2,
         "type": "Room Service",
-        "message": "$GREETING, $FNAME! Your room service order is on its way to Room $ROOM."
+        "message": "$GREETING, $FNAME. Your room service order is on its way to Room $ROOM."
     },
     {
         "id": 3,
         "type": "Checkout",
-        "message": "$GREETING, $FNAME $LNAME, your checkout time is $HOURS today. We hope you have enjoyed your time in $CITY!"
+        "message": "$GREETING, $FNAME $LNAME. Your checkout time is $TIME. We hope you have enjoyed your time in $CITY!"
     }
 ]
