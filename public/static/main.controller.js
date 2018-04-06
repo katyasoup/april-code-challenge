@@ -11,13 +11,21 @@ myApp.controller('MainController', function ($http, MainService) {
     // to store message data from server
     vm.messages = [];
 
-    vm.messageObj = {
-        company: "",
-        guest: "",
-        message: ""
+    // to store IDs for creating custom message object
+    vm.inputIDs = {
+        company: 0,
+        guest: 0,
+        message: 0
     };
 
-    // to store newly created custom message object
+    // to store user-selected data
+    vm.messageObj = {
+        company: {},
+        guest: {},
+        message: {}
+    };
+
+    // toggle fields on DOM
     vm.guestsOn = false;
     vm.messagesOn = false;
     vm.displayMessage = false;
@@ -45,32 +53,62 @@ myApp.controller('MainController', function ($http, MainService) {
         });
     };
 
+    // set company on DOM and in messageObj
     vm.selectCompany = function (companyID) {
         console.log('clicky companies', companyID);
         vm.guestsOn = true;
-        vm.messageObj.company = companyID;
-        console.log('messageObj:', vm.messageObj);
+        vm.inputIDs.company = companyID;
+        console.log('IDs:', vm.inputIDs);
         vm.getGuests();
     };
 
+    // set guest on DOM and in messageObj
     vm.selectGuest = function (guestID) {
         console.log('clicky guests', guestID);
         vm.messagesOn = true;
-        vm.messageObj.guest = guestID;
-        console.log('messageObj:', vm.messageObj);
+        vm.inputIDs.guest = guestID;
+        console.log('IDs:', vm.inputIDs);
         vm.getMessages();
     };
 
+    // set message on DOM and in messageObj
     vm.selectMessage = function (messageID) {
         console.log('clicky messages', messageID);
         vm.displayMessage = true;
-        vm.messageObj.message = messageID;
-        console.log('messageObj:', vm.messageObj);
-        // vm.displayMessage();
+        vm.inputIDs.message = messageID;
+        console.log('IDs:', vm.inputIDs);
+        vm.constructMessageObj(vm.inputIDs.company, vm.inputIDs.guest, vm.inputIDs.message);
+        console.log('DONE HIT');
+
 
     };
 
-    vm.displayMessage = function (companyID, guestID, messageID) {
+    // build message object based on user input
+    vm.constructMessageObj = function (companyID, guestID, messageID) {
         console.log('custom message with:', companyID, guestID, messageID);
+
+        // set messageToDisplay company to user selected company
+        for (let i = 0; i < vm.companies.length; i++) {
+            if (vm.companies[i].id == companyID) {
+                vm.messageObj.company = vm.companies[i];
+            }
+        }
+
+        // set messageToDisplay guest to user selected guest
+        for (let i = 0; i < vm.guests.length; i++) {
+            if (vm.guests[i].id == guestID) {
+                vm.messageObj.guest = vm.guests[i];
+            }
+        }
+
+        // set messageToDisplay message to user selected message
+        for (let i = 0; i < vm.messages.length; i++) {
+            if (vm.messages[i].id == messageID) {
+                vm.messageObj.message = vm.messages[i];
+            }
+        }
+
+        console.log('message to display:', vm.messageObj);
+        
     };
 });
